@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jrockway/opinionated-server/client"
+	"github.com/FahadBSyed/opinionated-server/client"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health/grpc_health_v1"
 )

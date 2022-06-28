@@ -5,6 +5,8 @@ package server
 import (
 	"context"
 	"fmt"
+	"github.com/jessevdk/go-flags"
+	"github.com/opentracing/opentracing-go"
 	"io"
 	"net"
 	"net/http"
@@ -15,14 +17,12 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/FahadBSyed/opinionated-server/client"
 	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/zap/ctxzap"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/grpc-ecosystem/grpc-opentracing/go/otgrpc"
-	"github.com/jessevdk/go-flags"
-	"github.com/jrockway/opinionated-server/client"
 	"github.com/opentracing-contrib/go-stdlib/nethttp"
-	"github.com/opentracing/opentracing-go"
 	"github.com/povilasv/prommod"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
@@ -175,9 +175,15 @@ func setup() error {
 	if err := setupLogging(); err != nil {
 		return fmt.Errorf("setup logging: %w", err)
 	}
-	if _, err := maxprocs.Set(maxprocsLogger()); err != nil {
-		return fmt.Errorf("setup maxprocs: %w", err)
-	}
+	// This doesn't work when using a VM running with WSL and docker desktop on Windows.
+	// The uber Maxprocs library is expecting an absolute path with a specific mount pattern for containers that is
+	// different when using Docker Desktop on Windows and mounting that into Unix. I don't plan on committing this
+	// up into master or using this in a released version of kube-event-tail, but I'm disabling it so I can get this
+	// to run locally at the very least during testing.
+
+	//if _, err := maxprocs.Set(maxprocsLogger()); err != nil {
+	//	return fmt.Errorf("setup maxprocs: %w", err)
+	//}
 	if err := setupTracing(); err != nil {
 		return fmt.Errorf("setup tracing: %w", err)
 	}

@@ -16,7 +16,7 @@ import (
 	"github.com/felixge/httpsnoop"
 	oldproto "github.com/golang/protobuf/proto" // nolint
 	"github.com/grpc-ecosystem/go-grpc-middleware/logging/zap/ctxzap"
-	"github.com/jrockway/opinionated-server/internal/formatters"
+	"github.com/FahadBSyed/opinionated-server/internal/formatters"
 	jaegerzap "github.com/uber/jaeger-client-go/log/zap"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"

@@ -4,7 +4,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/jrockway/opinionated-server/server"
+	"github.com/FahadBSyed/opinionated-server/server"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 )

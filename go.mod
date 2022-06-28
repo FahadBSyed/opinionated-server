@@ -1,4 +1,4 @@
-module github.com/jrockway/opinionated-server
+module github.com/FahadBSyed/opinionated-server
 
 go 1.13
 
